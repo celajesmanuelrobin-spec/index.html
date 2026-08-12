@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AP9 Student Survey</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .modal {
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 320px;
+    }
+    .modal h3 { margin-top: 0; font-size: 1.2rem; color: #1a73e8; }
+    .modal p { color: #555; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.4; }
+    .btn-container { display: flex; gap: 10px; justify-content: center; margin-bottom: 15px; }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      flex: 1;
+    }
+    .accept { background-color: #1a73e8; color: white; }
+    .decline { border: 1px solid #1a73e8; background: white; color: #1a73e8; }
+    
+    .privacy-link {
+      color: #7c4dff;
+      text-decoration: underline;
+      font-size: 0.85rem;
+      cursor: pointer;
+      display: inline-block;
+    }
+
+    #scare-screen {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: black;
+      z-index: 9999;
+    }
+    #scare-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fake Academic Survey Modal -->
+  <div class="modal" id="cookie-modal">
+    <h3>AP9 Student Survey</h3>
+    <p>Please accept cookies to proceed to the Araling Panlipunan 9 evaluation form.</p>
+    <div class="btn-container">
+      <button class="btn accept" onclick="popScare()">Accept</button>
+      <button class="btn decline" onclick="popScare()">Decline</button>
+    </div>
+    <!-- Clickbait Privacy Policy Link -->
+    <a class="privacy-link" onclick="popScare()">Privacy policy</a>
+  </div>
+
+  <!-- Jump Scare Screen -->
+  <div id="scare-screen">
+    <img src="https://upload.wikimedia.org/wikipedia/en/2/22/Jeff_the_Killer_Original_edited_image.png" alt="AP9">
+    <audio id="scream-sound" src="scream.mp3"></audio>
+  </div>
+
+  <script>
+    function popScare() {
+      // Go full screen
+      const elem = document.documentElement;
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen().catch(() => {});
+      }
+
+      // Reveal image and play audio
+      document.getElementById('cookie-modal').style.display = 'none';
+      document.getElementById('scare-screen').style.display = 'block';
+      
+      const audio = document.getElementById('scream-sound');
+      audio.play();
+    }
+  </script>
+</body>
+</html>
+
