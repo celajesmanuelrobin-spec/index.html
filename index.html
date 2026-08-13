@@ -54,19 +54,30 @@
       z-index: 9999;
     }
 
-    /* Active Animation Classes */
+    /* Shake Animation */
     .active-scare {
-      animation: shake 0.05s infinite, flash 0.12s infinite;
+      animation: shake 0.05s infinite;
     }
 
+    /* Dedicated Color Inversion Animation */
     #scare-screen img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      animation: zoomPulse 0.15s infinite alternate;
+      animation: colorInvert 0.08s infinite, zoomPulse 0.15s infinite alternate;
     }
 
-    /* Violent Screen Shake */
+    /* Rapid Hard Invert (Negative Effect) */
+    @keyframes colorInvert {
+      0%, 49.9% {
+        filter: invert(0%) contrast(100%);
+      }
+      50%, 100% {
+        filter: invert(100%) contrast(200%) hue-rotate(180deg);
+      }
+    }
+
+    /* Screen Shake */
     @keyframes shake {
       0% { transform: translate(8px, 8px) rotate(0deg); }
       20% { transform: translate(-8px, -8px) rotate(-2deg); }
@@ -76,16 +87,10 @@
       100% { transform: translate(-8px, -8px) rotate(-2deg); }
     }
 
-    /* High-Frequency Strobe & Invert Flash Effect */
-    @keyframes flash {
-      0%, 100% { filter: invert(0) brightness(1.2); background-color: black; }
-      50% { filter: invert(1) brightness(1.8) contrast(150%); background-color: red; }
-    }
-
-    /* Rapid Zoom Pulse */
+    /* Zoom Effect */
     @keyframes zoomPulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.25); }
+      100% { transform: scale(1.2); }
     }
   </style>
 </head>
@@ -110,19 +115,19 @@
 
   <script>
     function popScare() {
-      // Trigger native browser fullscreen
+      // Fullscreen Trigger
       const elem = document.documentElement;
       if (elem.requestFullscreen) {
         elem.requestFullscreen().catch(() => {});
       }
 
-      // Hide modal and activate jump scare container with animations
+      // Display scare
       document.getElementById('cookie-modal').style.display = 'none';
       const scareScreen = document.getElementById('scare-screen');
       scareScreen.style.display = 'block';
       scareScreen.classList.add('active-scare');
       
-      // Play audio at full volume
+      // Play Audio
       const audio = document.getElementById('scream-sound');
       audio.play();
     }
