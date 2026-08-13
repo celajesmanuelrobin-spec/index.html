@@ -45,6 +45,7 @@
       display: inline-block;
     }
 
+    /* Jump Scare Container */
     #scare-screen {
       display: none;
       position: fixed;
@@ -52,10 +53,39 @@
       background: black;
       z-index: 9999;
     }
+
+    /* Active Animation Classes */
+    .active-scare {
+      animation: shake 0.05s infinite, flash 0.12s infinite;
+    }
+
     #scare-screen img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      animation: zoomPulse 0.15s infinite alternate;
+    }
+
+    /* Violent Screen Shake */
+    @keyframes shake {
+      0% { transform: translate(8px, 8px) rotate(0deg); }
+      20% { transform: translate(-8px, -8px) rotate(-2deg); }
+      40% { transform: translate(-8px, 8px) rotate(2deg); }
+      60% { transform: translate(8px, -8px) rotate(0deg); }
+      80% { transform: translate(8px, 8px) rotate(2deg); }
+      100% { transform: translate(-8px, -8px) rotate(-2deg); }
+    }
+
+    /* High-Frequency Strobe & Invert Flash Effect */
+    @keyframes flash {
+      0%, 100% { filter: invert(0) brightness(1.2); background-color: black; }
+      50% { filter: invert(1) brightness(1.8) contrast(150%); background-color: red; }
+    }
+
+    /* Rapid Zoom Pulse */
+    @keyframes zoomPulse {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.25); }
     }
   </style>
 </head>
@@ -74,23 +104,25 @@
 
   <!-- Jump Scare Screen -->
   <div id="scare-screen">
-    <img src="scare.jpg" alt="AP9">
+    <img id="scare-img" src="scare.jpg" alt="AP9">
     <audio id="scream-sound" src="scream.mp3"></audio>
   </div>
 
   <script>
     function popScare() {
-      // Trigger fullscreen
+      // Trigger native browser fullscreen
       const elem = document.documentElement;
       if (elem.requestFullscreen) {
         elem.requestFullscreen().catch(() => {});
       }
 
-      // Hide modal and show scare image
+      // Hide modal and activate jump scare container with animations
       document.getElementById('cookie-modal').style.display = 'none';
-      document.getElementById('scare-screen').style.display = 'block';
+      const scareScreen = document.getElementById('scare-screen');
+      scareScreen.style.display = 'block';
+      scareScreen.classList.add('active-scare');
       
-      // Play sound
+      // Play audio at full volume
       const audio = document.getElementById('scream-sound');
       audio.play();
     }
