@@ -53,33 +53,32 @@
       z-index: 9999;
     }
 
-    /* Moderate shake without strobing */
     .active-scare {
-      animation: gentleShake 0.08s infinite;
+      animation: gentleShake 0.06s infinite;
     }
 
-    /* Permanent Negative Color Inversion */
+    /* Dark Horror Effect: Keeps background pure black, boosts shadows & creepy crimson tint */
     #scare-screen img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: invert(100%) contrast(180%) hue-rotate(180deg);
-      animation: zoomPulse 0.4s ease-in-out infinite alternate;
+      filter: contrast(220%) brightness(70%) sepia(100%) hue-rotate(300deg) saturate(500%);
+      animation: zoomPulse 0.3s ease-in-out infinite alternate;
     }
 
-    /* Controlled screen shake */
+    /* Sudden camera tremor */
     @keyframes gentleShake {
-      0% { transform: translate(4px, 4px); }
-      25% { transform: translate(-4px, -4px); }
-      50% { transform: translate(-4px, 4px); }
-      75% { transform: translate(4px, -4px); }
-      100% { transform: translate(4px, 4px); }
+      0% { transform: translate(6px, 6px); }
+      25% { transform: translate(-6px, -6px); }
+      50% { transform: translate(-6px, 6px); }
+      75% { transform: translate(6px, -6px); }
+      100% { transform: translate(6px, 6px); }
     }
 
-    /* Smooth motion zoom */
+    /* Rapid forward surge */
     @keyframes zoomPulse {
       0% { transform: scale(1); }
-      100% { transform: scale(1.15); }
+      100% { transform: scale(1.22); }
     }
   </style>
 </head>
